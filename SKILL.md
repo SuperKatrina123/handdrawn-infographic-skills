@@ -1,6 +1,6 @@
 ---
 name: handdrawn-infographic
-description: Use when the user wants to turn structured text (outline, bullet list, concept explanation, comparison, multi-pattern overview, agent/workflow writeup, tech concept, process description) into a hand-drawn whiteboard-style infographic image. Triggers on phrases like "生成手绘图", "画一张手绘信息图", "turn this into a sketch", "make it a whiteboard diagram", "concept sketch", "pastel hand-drawn illustration". Covers grid overviews, A-vs-B comparisons, and single-scene hierarchy diagrams in a cream-background, pastel-highlighted, rounded-card hand-drawn style. Two-phase: first emits a layout plan + image prompt for review, then calls Gemini image generation on confirmation.
+description: 'Use when the user wants to turn structured text (outline, bullet list, concept explanation, comparison, multi-pattern overview, agent/workflow writeup, tech concept, process description) into a hand-drawn whiteboard-style infographic image. Triggers on phrases like "生成手绘图", "画一张手绘信息图", "turn this into a sketch", "make it a whiteboard diagram", "concept sketch", "pastel hand-drawn illustration". Covers grid overviews, A-vs-B comparisons, and single-scene hierarchy diagrams in a cream-background, pastel-highlighted, rounded-card hand-drawn style. Two-phase: first emits a layout plan + image prompt for review, then calls Gemini image generation on confirmation.'
 ---
 
 # Handdrawn Infographic
