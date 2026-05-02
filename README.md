@@ -43,12 +43,103 @@ Skill 会先给你：
 
 确认后再出图，或者只要 prompt 自己拿去生。
 
+## 示例
+
+**输入**：
+
+> 把这段文字画成手绘信息图：「Parent agent delegates tasks to sub-agents in parallel. Each sub-agent has isolated context, its own tools, one job. They don't talk to each other. Results funnel back as compressed summaries so the parent context stays clean.」
+
+**Skill 的布局方案**：
+
+- **原型**：`single-scene` — 文本讲的是一个机制（父代理并行分派 + 结果汇流），有明确层级和流向
+- **标题**：跳过（火柴人气泡已承载"道理"）
+
+ASCII 草图：
+
+```
+                    ┌────────────────────┐
+                    │   Parent Agent     │   🧍 "Delegate,
+                    │  (dusty rose, ✓)   │    don't do
+                    └──┬───────┬────────┬┘    everything yourself"
+      step 1:         │       │        │
+      task + prompt   ▼       ▼        ▼
+              ┌─ ─ ─ ─ ┐┌─ ─ ─ ─┐┌─ ─ ─ ─┐
+              │ Sub A  ││ Sub B ✖│ Sub C │   (dashed = isolated)
+              │ 🔍     ││ 📄    ││ </>   │   (✖ = no cross-talk)
+              └─ ─ ─ ─ ┘└─ ─ ─ ─┘└─ ─ ─ ─┘
+               "Isolated" "Own tools" "One job"
+                    │       │        │
+                    ▼       ▼        ▼
+                    ╲────funnel────╱    step 2: compressed result
+                      ┏━━━━━━━━━━━┓
+                      ┃Context stays ┃    (sage-green highlighter)
+                      ┃   clean      ┃
+                      ┗━━━━━━━━━━━┛
+```
+
+元素清单：
+
+| # | 元素 | 颜色/样式 | 图标 |
+|---|---|---|---|
+| 1 | `Parent Agent` | dusty rose, 圆角矩形 | checklist |
+| 2–4 | `Sub-Agent A/B/C` | peach, **dashed** outline | magnifier / doc / `</>` |
+| 5 | Funnel | black line-art, no fill | — |
+| 6 | Highlighter: "Context stays clean" | sage-green | — |
+| 7 | Stick-figure + speech bubble | 黑线 | top-right |
+
+**Image Prompt（英文，交给 Gemini）**：
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper (#F5F1E8),
+aspect ratio 4:3, with subtle paper texture.
+
+Layout: one dominant central node at top-center ("Parent Agent", dusty rose
+rounded rectangle with a small black line-art checklist icon in the top-right
+corner), three hand-drawn arrows radiating downward labeled
+"step 1: task + system prompt" to three sub-nodes in a horizontal row:
+- "Sub-Agent A" (peach rounded rectangle, dashed outline, small magnifier
+  icon, italic handwritten caption underneath: "Isolated context"),
+- "Sub-Agent B" (peach rounded rectangle, dashed outline, small doc-page
+  icon, italic caption: "Own tools"),
+- "Sub-Agent C" (peach rounded rectangle, dashed outline, small </> code
+  window icon, italic caption: "One job").
+
+A horizontal wobbly line connects Sub-Agent B and Sub-Agent C with a clear
+black X-mark crossing it, labeled "no cross-talk".
+
+Three arrows from the sub-nodes converge downward into a black line-art
+funnel shape (no fill), labeled "step 2: compressed result — Only the
+result. Not the reasoning." in italic handwriting.
+
+Below the funnel, a sage-green hand-drawn highlighter rectangle wraps the
+phrase "Context stays clean".
+
+A small stick-figure character in the top-right corner with a hand-drawn
+speech bubble saying: "Delegate, don't do everything yourself".
+
+Style: all linework in wobbly black ink, not ruler-perfect. Flat muted
+pastel fills (dusty rose, peach, sage green — no gradients, no shadows,
+no 3D, no neon). Rounded rectangle corners. Small black line-art doodle
+icons. Italic handwritten captions. Generous whitespace between shapes.
+Cream paper background with visible subtle texture.
+
+Do not use: neon colors, gradients, drop shadows, perfectly straight ruler
+lines, photorealism, 3D rendering, corporate-slide aesthetic, emoji
+characters inside cards.
+```
+
+**Gemini 生成的成品**：
+
+![Example: Parent Agent single-scene](assets/example.jpeg)
+
 ## 目录结构
 
 ```
 handdrawn-infographic/
 ├── SKILL.md                         # 主流程 + 风格锚点 + 反模式
 ├── README.md                        # 本文件
+├── assets/
+│   └── example.jpeg                 # 示例成品图
 └── references/
     ├── layout-archetypes.md         # 六种原型的判定树和结构规范
     └── prompt-template.md           # 英文 prompt 模板 + 色板 + 7 个完整示例
