@@ -1,0 +1,440 @@
+# Prompt Template
+
+Fill this template to produce a Gemini image prompt. Keep it English-first. Keep it specific — vague prompts drift toward generic corporate infographics.
+
+## Table of Contents
+1. [Master template](#master-template)
+2. [Color palette (exact names to use)](#color-palette)
+3. [Style phrase bank](#style-phrase-bank)
+4. [Per-archetype scaffolds](#per-archetype-scaffolds)
+5. [Worked examples](#worked-examples)
+
+## Master template
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper (#F5F1E8),
+aspect ratio {ratio}. Title at top in bold handwritten-serif hybrid:
+"{TITLE}".
+
+Layout: {archetype_description}.
+
+Elements:
+{numbered list, one element per line: shape + label + color + position + icon}
+
+Arrows:
+{each arrow: from → to, style (solid/dashed/curved), label, optional X-mark for forbidden}
+
+Highlights:
+{0–2 key phrases wrapped in a {sage-green|soft-yellow} highlighter block}
+
+{optional character cameo: "a small stick-figure person in the {top-right|bottom-left} with a speech bubble saying '{QUOTE}'"}
+
+Style: all linework in black, hand-drawn wobbly strokes, rounded rectangle
+corners, flat muted pastel fills (no gradients, no shadows, no 3D).
+Palette: dusty rose, lavender, mint/sage green, baby blue, peach, soft yellow.
+Small black line-art doodle icons next to titles. Generous whitespace between
+cards. Paper texture subtle but visible. Italic handwritten one-line summaries
+below each card.
+
+Do not use: neon colors, gradients, drop shadows, perfectly straight ruler
+lines, photorealism, 3D rendering, corporate-slide aesthetic.
+```
+
+## Color palette
+
+Use these exact color names in the prompt. The model responds more reliably to named palettes than to hex codes.
+
+| Role | Name | Notes |
+|---|---|---|
+| Card A (primary) | dusty rose | For the "main" / parent / protagonist |
+| Card B | lavender / soft purple | For secondaries |
+| Card C | baby blue | For shared / neutral elements |
+| Card D | peach | For workers / sub-units |
+| Card E | soft yellow | For warnings, decisions, "optional" |
+| Highlighter green | sage green | For positive takeaways |
+| Highlighter yellow | soft yellow | For alternate emphasis |
+| Background | cream / off-white | `#F5F1E8`-ish, always |
+| Linework | black | Never gray — pure black for contrast |
+
+Assign colors intentionally: similar roles → similar colors. Don't rainbow.
+
+## Style phrase bank
+
+Drop these phrases into the prompt for reliability. Mix, don't repeat all:
+
+- "hand-drawn whiteboard illustration"
+- "wobbly ink lines, not ruler-perfect"
+- "rounded rectangle cards with hand-drawn borders"
+- "muted pastel palette, no saturation"
+- "sketchbook aesthetic, marker-and-pen style"
+- "flat color fills, no gradients or shadows"
+- "small doodle icons in black line-art"
+- "italic handwritten caption below each card"
+- "generous whitespace, airy composition"
+- "cream paper background with subtle texture"
+
+Phrases to explicitly NEGATE (include as "do not use"):
+
+- "3D, photorealism, rendered, glossy, metallic"
+- "neon, saturated, vivid, high-contrast"
+- "gradient, shadow, bevel, emboss"
+- "PowerPoint, corporate slide, business template"
+- "SVG-clean, geometric-perfect, vector art"
+
+## Per-archetype scaffolds
+
+### Grid
+
+```
+Layout: a {N}-cell grid arrangement ({2x2|2x3|3x2|2+2+1}), each cell a
+rounded rectangle card. Grid title centered above all cells. Each cell
+contains: (a) small icon in top-left corner, (b) bold card title, (c) a
+mini-diagram of 3–5 connected shapes, (d) italic one-line summary underneath.
+Cards are the same size except when the layout is 2+2+1 where the bottom cell
+spans full width. Highlight the {most-common|most-important} cell with a sage
+green highlighter over its summary line.
+```
+
+### Comparison
+
+```
+Layout: two equal-width columns, each with its own title at the top. Center
+divider is a {hand-drawn vertical line | small orange/red hand-drawn explosion
+star shape}. Both columns use parallel internal structure (same number of
+sub-cards, same shape). Left column uses {dusty rose}, right column uses
+{sage green}. Optional footer row with a single sage-green highlighter block
+summarizing "use X when ...; use Y when ...".
+```
+
+### Single-scene
+
+```
+Layout: one dominant central node at top-center, arrows radiating downward to
+sub-nodes. Sub-nodes connect to a {funnel shape | merge point} at bottom.
+Step-number pills (small numbered circles with labels) appear on the arrows.
+Dashed rectangle outlines around sub-nodes indicate isolated context. An X-mark
+crossing an arrow between two sub-nodes indicates "no cross-talk / forbidden".
+A stick-figure character in the {top-right} with a speech bubble voicing the
+moral. Flow direction: {top-down | left-to-right}.
+```
+
+### Progression strip
+
+```
+Layout: three equal-width panels laid out horizontally, each showing the SAME
+internal vocabulary of cards but at a different stage / turn / scale. Small
+"Turn N" or "Stage N" label above each panel. A tall vertical bracket `{` on
+the left or right of the wider panels labels a cumulative region (e.g.
+"Re-processed from scratch", "Redundant computation"). Roles that persist
+across panels keep the SAME color. Optional thought-bubble callout on one
+panel voicing the "moral" (e.g. "I've seen most of this before..."). Optional
+right-side annotation like "Billed at full price" with an arrow pointing at
+the cumulative bracket.
+```
+
+### Sequential comparison (Phase 1 → Phase 2)
+
+```
+Layout: canvas split by a DASHED vertical center line into two phases (not
+alternatives — consecutive stages). Left side titled "Phase 1: {Name}", right
+side titled "Phase 2: {Name}". A clear horizontal handoff arrow crosses the
+dashed divider with a label like "{State} handed off". Each phase may contain
+domain-specific illustrations like tensor grids (a 3×5 array of small rounded
+squares with pastel fills — gray/orange/green — labeled Q/K/V on top). Below
+each phase, a compute-mode badge: a line-art flame icon with text
+"Compute-Heavy — O(n²) ..." on the left; a line-art floppy/disk icon with
+text "Memory-Bound — O(n) ..." on the right. Annotation arrows with italic
+captions like "Saved to cache", "Reads from memory", "New K, V appended
+after each token".
+```
+
+### Metaphorical illustration
+
+```
+Layout: one hand-drawn scene depicting the metaphor literally (e.g. a
+scaffolding around a building, a garden with plants at different growth
+stages, an iceberg with visible tip and submerged mass). The scene fills the
+center ~70% of the canvas. Use wobbly black ink linework with 1–2 pastel
+accent fills inside the scene (e.g. {scaffolding planks in peach}, {tool belt
+in sage green}); keep the rest as black line-art.
+Labels sit in the whitespace around the scene as small rounded pastel
+rectangles ({dusty rose}, {lavender}, {baby blue}), each connected to the
+part of the scene it labels by a thin wobbly hand-drawn leader line.
+4–8 labels max. Optional stick-figure character interacting with the scene
+(e.g. worker on scaffolding, gardener kneeling in garden). Optional sage
+green highlighter block at the bottom with the one-sentence moral.
+```
+
+### Concentric radial
+
+```
+Layout: concentric rings centered on the canvas, aspect ratio 1:1 or 4:3.
+Innermost circle is the "core" — {dusty rose} filled rounded circle with bold
+handwritten-serif title "{CORE_LABEL}" (1–3 words). Surrounding it, {2–3}
+ring-shaped bands with wobbly hand-drawn borders. Ring fills from inside out:
+{lavender} → {baby blue} → {peach}. Each ring is segmented into {3–6} equal
+sectors by thin wobbly radial divider lines; each sector contains a short
+label and optional small black line-art icon.
+{OR: outermost layer fans out as N separate rounded pastel "petal" rectangles
+anchored by short arrows to the core, like a flower.}
+Generous whitespace around the outermost ring — do not push to canvas edges.
+Optional stick-figure cameo outside the rings with a speech bubble voicing
+the moral.
+```
+
+## Worked examples
+
+### Example 1 — Single-scene (Parent Agent diagram)
+
+Input text: "Parent agent delegates tasks to sub-agents in parallel. Each sub-agent has isolated context, its own tools, one job. They don't talk to each other. Results funnel back as compressed summaries so the parent context stays clean."
+
+Output prompt:
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio 4:3.
+Title at top: "Delegate, don't do everything yourself".
+
+Layout: one dominant central node at top-center ("Parent Agent", dusty rose
+rounded rectangle with a small checklist icon), three arrows radiating down
+labeled "step 1: task + system prompt" to three sub-nodes in a row:
+"Sub-Agent A" (peach, magnifier icon, caption "Isolated context"),
+"Sub-Agent B" (peach, doc icon, caption "Own tools"),
+"Sub-Agent C" (peach, code-window icon, caption "One job").
+All three sub-nodes have dashed rectangle outlines. An X-mark crosses the
+horizontal line between B and C labeled "no cross-talk".
+Three arrows from the sub-nodes converge downward into a black line-art
+funnel shape labeled "step 2: compressed result — Only the result. Not the reasoning."
+Below the funnel, a sage-green highlighter block: "Context stays clean".
+A stick-figure character in the top-right with a speech bubble:
+"Delegate, don't do everything yourself".
+
+Style: hand-drawn wobbly black ink lines, flat muted pastels (dusty rose,
+peach, sage green), rounded rectangle corners, cream paper texture, doodle
+icons in black line-art, italic handwritten captions, generous whitespace.
+Do not use: gradients, shadows, 3D, neon colors, corporate-slide aesthetic.
+```
+
+### Example 2 — Comparison (Subagents vs Agent Teams)
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio 16:9.
+Two equal-width columns with a small orange hand-drawn explosion star between them.
+
+Left column titled "Subagents":
+- "Main Agent" (dusty rose rounded rectangle, gear icon) at top.
+- Three "Spawn Subagent" arrows down to three peach rounded rectangles
+  labeled "Subagent", "Subagent", "Subagent".
+- Each subagent has a dashed-outline "Result" circle below it.
+- A curved arrow from the results back up to Main Agent labeled "Report".
+
+Right column titled "Agent Teams":
+- "Main Agent (Team Lead)" (dusty rose, people icon) at top.
+- Down arrow labeled "Spawn Team & Assign Tasks" to a baby-blue rectangle
+  "Shared Task List".
+- Below, three lavender rectangles "Teammate", "Teammate", "Teammate"
+  connected to the Shared Task List with two-way arrows labeled
+  "Communicate & Claim Tasks". Horizontal two-way arrows between teammates
+  labeled "Communicate".
+- Three "Work" arrows down from the teammates.
+
+Style: hand-drawn wobbly black ink, flat muted pastels, cream paper, rounded
+corners, doodle icons, italic handwritten captions, generous whitespace.
+No gradients, no shadows, no 3D.
+```
+
+### Example 3 — Grid (Five Patterns)
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio 16:9.
+Bold handwritten-serif title centered at top: "Five orchestration patterns for
+multi-agent AI systems".
+
+Layout: 2+2+1 grid. Top row: two cells side-by-side. Middle row: two cells
+side-by-side. Bottom row: one cell spanning full width.
+
+Cell 1 (top-left) — chain-link icon, title "Pattern 1: Prompt Chaining".
+  Mini-diagram: "Step 1" → "Step 2" → diamond-shape "optional check" (soft
+  yellow highlight) → "Step 3", all connected by arrows.
+  Italic caption: "Sequential. Each output feeds the next."
+
+Cell 2 (top-right) — fork icon, title "Pattern 2: Routing".
+  Mini-diagram: lavender "Classifier" → two sage-green rectangles
+  "Simple query: Haiku" and "Hard query: Sonnet".
+  Italic caption: "Right model for right task."
+
+Cell 3 (middle-left) — bars icon, title "Parallelization".
+  Mini-diagram: a small box → three peach rectangles "Worker A", "Worker B",
+  "Worker C" → a small box, connected by arrows.
+  Italic caption: "Independent tasks. Broader coverage." + small stopwatch icon.
+
+Cell 4 (middle-right) — tree-structure icon, title "Orchestrator-Worker".
+  Mini-diagram: lavender "Orchestrator" at top, arrows labeled "results" down
+  to three peach "Worker" rectangles.
+  Caption highlighted in sage green: "Most common in production." + trophy icon.
+
+Cell 5 (bottom, full width) — loop icon, title "Evaluator-Optimizer".
+  Mini-diagram: "Generator" ↔ lavender "Evaluator" (two arrows: "output" forward,
+  "feedback" back). Stick-figure character on the right with a magnifier.
+  Italic caption: "Quality over speed. Loop until good."
+
+Style: hand-drawn wobbly black ink, flat muted pastels, cream paper, rounded
+corners, doodle icons, italic handwritten captions, generous whitespace
+between cells. No gradients, no shadows, no 3D, no corporate-slide look.
+```
+
+### Example 4 — Progression strip (redundant computation across turns)
+
+Input text: "Every turn, the full conversation history is re-processed. Turn 1 has the system prompt + tool definitions + user message. Turn 2 adds assistant response + user message 2, but re-sends everything. Turn 3 adds tool call + result + user 3. Same prefix, same cost, every turn — redundant computation billed at full price."
+
+Output prompt:
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio
+16:9. Three panels laid out horizontally side-by-side, equal width.
+
+Panel 1 (left, labeled "Three consecutive agent turns sent to LLM" above):
+A small stick-figure "Developer" character at top-left with a speech bubble
+"User: Look at the auth module". Arrow down to a vertical stack of three
+rounded rectangle cards: baby-blue "System Prompt" (doc icon), baby-blue
+"Tool Definitions" (gear icon), sage-green "User Message 1". Arrow right from
+the stack to a small cloud/brain icon labeled "LLM". Caption below:
+"Everything is new. Full computation." Side label on left: "Full API payload
+sent to the LLM".
+
+Panel 2 (middle): Same vertical stack structure but now five rounded rectangle
+cards: baby-blue "System Prompt", baby-blue "Tool Definitions", gray-lavender
+"User Message 1", gray-lavender "Assistant Response 1", sage-green
+"User Message 2". A tall orange vertical bracket `{` on the left labels
+"Re-processed from scratch". Arrow right to the LLM brain icon, with a
+thought-bubble underneath: "I've seen most of this before...".
+
+Panel 3 (right): Same structure extended to seven cards: baby-blue "System
+Prompt", baby-blue "Tool Definitions", gray-lavender "User Message 1",
+gray-lavender "Assistant Response 1", gray-lavender "Tool Call + Result",
+gray-lavender "User Message 2", gray-lavender "Assistant Response 2",
+sage-green "User Message 3". Tall orange vertical bracket `{` on the left
+labels "Redundant computation". Arrow right to LLM brain icon. A side label
+with arrow pointing at the bracket: "Redundant computation, billed at full
+price". A small stick-figure in the bottom-right with a frustrated expression
+and thought-bubble: "Same prefix, same cost, every turn".
+
+Same-role cards keep the SAME color across all three panels (System Prompt is
+always baby-blue, user messages always sage-green, prior turns gray-lavender).
+
+Style: hand-drawn wobbly black ink, flat muted pastels, cream paper, rounded
+rectangle corners, doodle icons, italic handwritten annotations, generous
+whitespace. No gradients, no shadows, no 3D.
+```
+
+### Example 5 — Sequential comparison (Prefill → Decode)
+
+Input text: "Every LLM inference has two phases. Prefill processes the whole prompt at once in parallel, doing O(n²) attention — compute-heavy. The K and V tensors get saved to a KV cache. Decode then generates tokens one at a time, reading from the cache instead of recomputing — memory-bound, O(n) per token."
+
+Output prompt:
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio
+16:9. Canvas split by a DASHED vertical center line into two phases.
+
+Left side titled "Phase 1: Prefill" in handwritten-serif. Contents:
+- A horizontal row of five baby-blue rounded pill-shapes labeled
+  "The", "model", "reads", "all", "tokens", with an annotation above:
+  "Entire prompt processed at once (parallel)".
+- A down-arrow labeled "Parallel Processing" leading to a large light-blue
+  rounded rectangle containing a 3-column × 5-row grid of small rounded
+  squares, columns labeled "Q", "K", "V" at the top. Fills: Q column gray
+  with a faint X mark below ("Not saved"), K column pastel orange, V column
+  sage green.
+- Side annotation "One Q, K, V vector computed per token".
+- Bottom-left footer: line-art flame icon + bold label "Compute-Heavy" with
+  italic caption "O(n squared) attention across all tokens, paid once".
+- Down-arrow labeled "Saved to cache" and "K and V tensors stored" pointing
+  toward the divider.
+
+A horizontal HANDOFF arrow crosses the dashed divider labeled "KV Cache
+handed off".
+
+Right side titled "Phase 2: Decode". Contents:
+- Top: a single pastel-peach rounded rectangle "New Token" with a zzz/bubble
+  icon, caption "One token generated at a time".
+- A horizontal flow of three rounded rectangles: gray-lavender "Compute Q for
+  new token only" → pastel-peach "Attend over KV Cache" → sage-green
+  "Generate next token", all with right-pointing arrows. A curved return
+  arrow above labeled "Repeat for each token".
+- Below, a rounded rectangle labeled "KV Cache" containing a 2-column × 3-row
+  grid (columns "K" and "V") of small rounded squares with pastel orange (K)
+  and sage-green (V) fills. A dashed-outline row at the bottom with a `+`
+  mark labeled "New K, V appended after each token".
+- A dotted arrow from the "Attend over KV Cache" block down to the cache
+  labeled "Reads from memory".
+- Bottom-right footer: line-art floppy/disk icon + bold label "Memory-Bound"
+  with italic caption "O(n) per token. Reads stored tensors, skips
+  recomputation".
+
+Style: hand-drawn wobbly black ink, flat muted pastels (baby-blue, pastel
+orange, sage green, gray-lavender, pastel peach), cream paper, rounded
+corners, doodle icons, italic handwritten captions, generous whitespace.
+No gradients, no shadows, no 3D.
+```
+
+### Example 6 — Metaphorical illustration (Agent engineering as scaffolding)
+
+Input text: "Building a reliable agent is like putting up scaffolding around a building: evals are the foundation planks, guardrails are the safety rails, tools are the worker's tool belt, and the feedback loop is the ladder letting you climb back up when something breaks."
+
+Output prompt:
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio
+4:3. One drawn scene at the center ~70% of the canvas: a multi-story building
+under construction wrapped in wooden scaffolding, drawn in wobbly black ink
+with peach-colored planks and a sage-green safety rail running along the top.
+A small stick-figure worker stands on the middle scaffold level wearing a
+dusty-rose tool belt.
+
+Labels in the whitespace around the scene, each a small rounded pastel
+rectangle connected by a thin wobbly hand-drawn leader line to the part it
+labels:
+- "Evals" (dusty rose) → pointing to the horizontal foundation planks at the
+  base of the scaffolding.
+- "Guardrails" (lavender) → pointing to the sage-green safety rail.
+- "Tools" (baby blue) → pointing to the worker's tool belt.
+- "Feedback Loop" (peach) → pointing to a ladder leaning against the
+  scaffolding.
+
+A sage-green highlighter block at the bottom: "The scaffolding is how the
+building gets built safely".
+
+Style: hand-drawn wobbly black ink, flat muted pastels, cream paper, rounded
+corners, italic handwritten leader captions, generous whitespace. No
+gradients, no shadows, no 3D, no photorealism.
+```
+
+### Example 7 — Concentric radial (Values-driven team)
+
+Input text: "At the center of a strong team is a shared mission. Surrounding that are the team's core practices: honesty, ownership, craft. Around those sit the outward effects: trust, velocity, quality."
+
+Output prompt:
+
+```
+A hand-drawn whiteboard-style infographic on warm cream paper, aspect ratio
+1:1. Three concentric rings centered on the canvas, all with wobbly
+hand-drawn borders in black ink.
+
+Innermost: dusty rose filled rounded circle, bold handwritten-serif label
+"Shared Mission" inside.
+
+Middle ring: lavender band divided into 3 equal sectors by thin wobbly
+radial lines. Sectors labeled "Honesty", "Ownership", "Craft" with small
+black line-art icons (heart, hand, hammer).
+
+Outer ring: baby-blue band divided into 3 equal sectors. Sectors labeled
+"Trust", "Velocity", "Quality" with small icons (handshake, stopwatch,
+trophy).
+
+Generous whitespace around the outer ring. A stick-figure character outside
+the rings at the bottom-right with a speech bubble: "Start from the center".
+
+Style: hand-drawn wobbly black ink, flat muted pastels, cream paper, rounded
+corners, italic handwritten captions, generous whitespace. No gradients, no
+shadows, no 3D.
+```
