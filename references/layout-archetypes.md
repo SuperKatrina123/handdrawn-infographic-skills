@@ -43,6 +43,7 @@ Key disambiguation — `progression strip` vs `grid` vs `comparison`:
 - **Grid** = N distinct things side-by-side (different patterns, different categories)
 - **Comparison** = 2 contrasted things (A vs B, pick one)
 - **Progression strip** = the SAME thing shown at 3–4 stages — turn 1 → turn 2 → turn 3, or small → medium → large. The panels share internal vocabulary; what changes is the quantity or state.
+- **2D progression** (sub-variant of progression strip) = "same thing, two conditions, across time" — a 2×N grid where rows are conditions (with vs without, baseline vs treatment) and columns are time steps. Pick this when the user wants to see *both* "what changes over time" *and* "how condition A differs from condition B" in one image. Don't use comparison (loses the time axis) or two separate progression strips (loses the side-by-side punch).
 
 ## Archetype A: Grid
 
@@ -60,6 +61,19 @@ Key disambiguation — `progression strip` vs `grid` vs `comparison`:
 - Use simple flow shapes: `[A]→[B]→[C]` or `[Input]→[fork]→[A/B/C]→[merge]`
 - Keep it to ≤5 shapes per cell — more won't read at grid size
 - Label every arrow (or leave deliberately unlabeled with a note)
+
+**Mini-diagram metaphor cheat sheet** — pick ONE per cell, matched to what the concept actually *is*. Picking the right metaphor is what turns a grid from decorative into explanatory:
+
+| Metaphor | Visual | Use when the concept is… | Example |
+|---|---|---|---|
+| **Loop / cycle** | 3 shapes in a triangle joined by curved arrows, with one return arrow | a repeating process that only ends on a condition | `Agent Loop`: Think → Act → Observe → Think |
+| **Radial / fan-out** | a center node with 3–4 arrows to peripheral doodles | a hub that reaches many external things | `Tool System`: Agent → magnifier / code / db |
+| **Funnel / filter** | wide top labeled with inputs, narrow bottom labeled with output | selecting / compressing many inputs into one output | `Context Engineering`: Docs/Tools/History → Model input |
+| **Timeline** | horizontal line with T1/T2/T3 ticks and items attached | state persisting or accumulating across time | `Memory`: T1/T2/T3 with Notes/Facts beneath |
+| **Tree / hierarchy** | one parent node with arrows to 3 child nodes | delegation, taxonomy, decomposition | `Multi-Agent`: Lead → Sub / Sub / Sub |
+| **Concentric / wrap** | small core circle surrounded by a frame with 4 edge labels | a core thing being contained / governed by surrounding layers | `Harness Engineering`: Model wrapped by Runtime / Sandbox / Hooks / Permissions |
+
+When the cell concept doesn't cleanly map to one of the six, ask: "is this a loop, a hub, a filter, a timeline, a tree, or a wrapper?" If still none fit, the cell probably doesn't belong in a grid at all — escalate to single-scene for that concept and re-scope the grid.
 
 **Cell-count layouts**:
 - 4 items → 2×2
@@ -83,7 +97,24 @@ Key disambiguation — `progression strip` vs `grid` vs `comparison`:
 
 **Common failure**: making the two sides have different internal shapes. Don't — if one side has 3 sub-cards, the other should too.
 
+**Asymmetry exception — semantics over symmetry**: when one side is naturally a loop / sequence (e.g. `Reason → Act → Observe`) and the other side is genuinely a flat list of parallel traits (e.g. `Answers` / `Waits` / `Forgets`), force-flattening the loop into parallel cards lies about the concept. Allow the two sides to have *different internal grammars* (parallel stack vs. arrow chain with return loop), as long as you keep the visual weight balanced:
+- Same number of cards on each side (3 vs 3, not 3 vs 5)
+- Same card size and color-family structure (one pastel per side)
+- Same vertical height overall
+- The "loop" side uses hand-drawn arrows between cards + one curved return arrow on the outer edge; the "list" side leaves cards unconnected
+
+The reader should feel the asymmetry as *meaning* ("one is a cycle, one is a dead-end"), not as *drift*.
+
 **Sub-variant — Sequential comparison (Phase 1 → Phase 2)**: When the two sides represent consecutive stages that hand off state to each other (not alternatives to choose between), use a *dashed vertical divider* (not a solid line or explosion star) and add a clear horizontal **handoff arrow** crossing the divider with a label like "KV Cache handed off" or "state passed to next phase". Titles become "Phase 1: X" / "Phase 2: Y" rather than neutral "X" / "Y". Inside each phase, feel free to use domain visualizations like **tensor/matrix grids** (3×5 array of small colored squares to represent Q/K/V tensors — pastel gray/orange/green fills). Add a compute-mode icon at the bottom of each phase: 🔥 line-art flame for compute-heavy, 💾 floppy/disk for memory-bound.
+
+**Sub-variant — Horizontal-split (shared-axis / Gantt) comparison**: When the comparison hinges on a *shared axis* — almost always time, but also "size", "load", or "scale" — the standard vertical split is wrong. Splitting vertically forces each side to draw its own axis, and the eye can no longer compare positions across sides. Instead split *horizontally*: stack the two strategies as two lanes (top lane / bottom lane), and draw ONE shared axis along the bottom that both lanes register against. Classic use: Gantt-chart contrasts like "wait then execute" vs "execute while generating" — the savings are only legible because both lanes' bars sit on the same time ruler.
+
+Rules specific to this sub-variant:
+- The two lanes get pastel **labels on the left** (small pill: dusty-rose with `×` for the worse strategy, sage-green with `✓` for the better one) — NOT titles centered above each lane
+- **Bars that represent the same activity across lanes must be drawn the same length and color** — otherwise you've smuggled a second variable into the comparison and the speed delta becomes a lie. (E.g. "Generation" bar should be identical on both lanes; only the tool-execution placement differs.)
+- The shared axis goes once, at the bottom, with tick labels (`0s`, `1s`, ...). Do NOT repeat the axis on each lane.
+- Use a **highlighter bracket** spanning the gap between the two lanes' endpoints to label the savings (e.g. sage-green block reading `saved 30–50%`). This is the punchline.
+- No center divider (no vertical line, no explosion star) — the two lanes are co-located on the same canvas, not opposed.
 
 ## Archetype C: Single-scene
 
@@ -102,7 +133,7 @@ Key disambiguation — `progression strip` vs `grid` vs `comparison`:
 **Flow directions (pick one, stick to it)**:
 - Top-down (most common for hierarchy)
 - Left-to-right (for linear sequences of 3–5 steps)
-- Circular (for feedback loops — generator ↔ evaluator; avoid otherwise)
+- Circular (for any genuine 3–5 step loop where the *return to start* is part of the argument — feedback loops, approval cycles, polling, retry. Not just generator↔evaluator. Place 3–5 nodes at clock positions, connect with curved clockwise arrows carrying step-number pills, and put the moral or punchline in a sage-green highlighter block in the **center** of the loop. Avoid for non-cyclic flows where left-to-right reads cleaner.)
 
 **Density budget**: 5–9 labeled shapes total. More than that → split into two diagrams or switch to grid.
 
@@ -130,6 +161,38 @@ Key disambiguation — `progression strip` vs `grid` vs `comparison`:
 - Changing the order or style of shared cards between panels (breaks visual continuity)
 - Letting one panel get much denser than the others (keep visual weight balanced even though content grows — use whitespace)
 - Forgetting the vertical bracket annotation — it's what turns "3 pictures" into "one argument about accumulation"
+
+### Sub-variant: 2D progression (conditions × time)
+
+**When**: The argument is "given the SAME timeline, condition A degrades while condition B holds steady" — you need both a time axis AND a condition axis. Classic uses: "with feature X vs without, watched at 0s / 3s / 9s", "old API vs new API across three load levels", "trained model vs baseline at epoch 1 / 5 / 20".
+
+**Signal phrases**: "compare X vs Y over time", "same N seconds, two outcomes", "with vs without, panel by panel".
+
+**Structure**:
+- A 2-row × 3-column (or 2×4) grid of identical-sized small mockup frames
+- Columns are the **time axis**; column labels (`0s` / `3s` / `9s` or `T1` / `T2` / `T3`) sit above the FIRST row only — do not repeat above row 2
+- Rows are the **condition axis**; left-side row labels are small pastel rounded rectangles with a clear marker: `❌ {Condition A}` (peach or dusty rose) and `✅ {Condition B}` (sage green)
+- Every cell contains the SAME mockup shell (e.g. smartphone bezel, dashboard frame) with the same anchor element across all 6 cells (e.g. user bubble identical in color, position, content)
+- What varies cell-by-cell: ONLY the response zone — row 1 degrades across columns, row 2 holds or grows successfully across columns
+- Per-cell stick-figure under each frame with an evolving expression — this is what makes the contrast visceral. Row 1 expressions decay (smile → puzzle → frustration); row 2 expressions stay stable or improve.
+- Single bottom highlighter block carrying the punchline — DO NOT add a vertical bracket here (the row labels already do that job; brackets are for the 1D variant)
+
+**Color convention**:
+- Anchor element (user bubble, header strip): identical color across all 6 cells
+- Row 1 response zone: faint peach wash (signals "stuck")
+- Row 2 response zone: faint baby-blue wash with sage-green growing content (signals "alive")
+- Row labels carry the row's color identity
+
+**When NOT to use**:
+- If only ONE condition is shown over time → use the standard 1D progression strip with a vertical bracket
+- If only ONE timepoint is shown for two conditions → use Comparison
+- If the cells don't share the SAME mockup shell → it's a grid, not a progression
+
+**Common failures**:
+- Repeating column labels above row 2 (clutters; one row of column labels is enough)
+- Letting the anchor element drift in color/size between cells (kills the "same situation" read)
+- Adding a vertical bracket on top of row labels (redundant — pick one mechanism)
+- Forgetting to evolve stick-figure expressions — without them the rows look identical at a glance
 
 ## Archetype E: Metaphorical illustration
 

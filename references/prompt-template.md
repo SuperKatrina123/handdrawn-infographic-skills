@@ -73,13 +73,49 @@ Drop these phrases into the prompt for reliability. Mix, don't repeat all:
 - "generous whitespace, airy composition"
 - "cream paper background with subtle texture"
 
-Phrases to explicitly NEGATE (include as "do not use"):
+### Bilingual title pattern (verified)
+
+For Chinese users, the strongest title rendering is an **English main title in large handwritten-serif + a smaller italic Chinese subtitle below it**. Both render cleanly in Gemini, and the two scripts separate by weight rather than competing.
+
+Prompt snippet:
+
+```
+Bold handwritten-serif title centered at the top: "{ENGLISH TITLE}"
+with a smaller italic Chinese subtitle below it: "{中文副标题}".
+```
+
+Avoid:
+- Putting the Chinese as the main (large) title — Gemini's handwritten-serif weight does not carry CJK as crisply.
+- Two equally-weighted bilingual lines — they fight for attention.
+- Chinese in small card body text → OK (renders fine at body weight), just not as the heroic title.
+
+Verified in the "6 Pillars of an Agent" grid: English `The 6 Pillars of an Agent` as the hero title with Chinese `Agent 的 6 大支柱` as the italic subtitle rendered cleanly, while a sage-green highlighter block in the Chatbot-vs-Agent comparison carried the full-width Chinese phrase `Chatbot 只会回答，Agent 真正搞定一切` — highlighter-block Chinese also renders reliably.
+
+### Phrases to explicitly NEGATE (include as "do not use"):
 
 - "3D, photorealism, rendered, glossy, metallic"
 - "neon, saturated, vivid, high-contrast"
 - "gradient, shadow, bevel, emboss"
 - "PowerPoint, corporate slide, business template"
 - "SVG-clean, geometric-perfect, vector art"
+
+### Monospace inside cards (code / JSON / token strings)
+
+When a card's content is **code, JSON fragments, token streams, file paths, or any literal string the reader needs to read character-by-character**, the default handwritten-italic style is wrong — Gemini will "beautify" `'{"file_'` into a flowing cursive that destroys the point.
+
+Always force monospace for these payloads. In the prompt, add an explicit instruction like:
+
+```
+The text inside the {Buffer | incoming token | code} card MUST be rendered
+in a monospace / typewriter font, NOT handwriting. Characters like quotes,
+braces, and underscores must be visually distinct and unbeautified.
+```
+
+When the SAME role appears across multiple panels (e.g. a `Buffer` card across a 4-panel progression), state the monospace rule ONCE and add: "the monospace style of this role must be identical across all panels."
+
+Verified failure mode: a JSON-fragment progression strip without the monospace clause renders panel 1 as `'{"file_'` cleanly and panel 3 as a stylized cursive `'src/uti'` that loses the `'` quote glyph, breaking the "fragment" read.
+
+When NOT to use this: prose card body text, captions, labels — those should stay in the default handwritten style. Monospace is a payload-level override, not a card-level default.
 
 ## Per-archetype scaffolds
 
